@@ -33,12 +33,17 @@ def create_db():
 		db.close()
 
 
-def put_message(db, timestamp, priority, sec_level, author, source, message):
+def put_post(db, timestamp, priority, sec_level, author, source, message):
+	cursor = db.cursor()
+	cursor.execute('''SELECT max(id) from posts''')
+	post_id = cursor.fetchone()[0] + 1
 	db.execute('''
 		INSERT INTO posts(id, timestamp, priority,sec_level,author,source,message) 
 		VALUES (?, ?, ?, ?, ?, ?, ?)
-	''', (id, timestamp, priority, sec_level, author, source, message))
-	
+	''', (post_id, timestamp, priority, sec_level, author, source, message))
+	db.commit()
+	return post_id	
+
 def get_messages(db,limit = 0):
 	posts = []
 	cursor = db.cursor()
@@ -92,47 +97,51 @@ def get_messages_timestamp_range(db,timestamp_start, timestamp_end):
 	print posts
 	return posts
 
+def delete_post(db, post_id):
+	rowcount = 0
+	rowcount = db.execute("delete from posts where id = %s" % post_id).rowcount
+	return rowcount
+
 def put_some_data(db):
 	db.execute('''
 			INSERT INTO users(id, username, password) VALUES (1,'mazek','test')
 		''')
-	ts = int(time.time())
+	ts = int(time())
 	db.execute('''
 			INSERT INTO posts(id, timestamp, priority,sec_level,author,source,message) 
 			VALUES (1 ,? ,0 ,0 , 'jan dlugosz', 'twitter', 'Przykladowy post mowiacy o niczym')
 	''', (ts,))
-	ts = int(time.time())+2
+	ts = int(time())+2
 	db.execute('''
 			INSERT INTO posts(id, timestamp, priority,sec_level,author,source,message) 
 			VALUES (2 ,? , 1, 0, 'ada nowak', 'ulica', 'Kolejny post mowiacy o niczym')
 	''', (ts,))
-	ts = int(time.time())+4
+	ts = int(time())+4
 	db.execute('''
 			INSERT INTO posts(id, timestamp, priority,sec_level,author,source,message) 
 			VALUES (3 ,? , 0, 1, 'john smith', 'kuchnia', 'Jeszcze inny post mowiacy o niczym')
 	''', (ts,))
-	ts = int(time.time())+8
+	ts = int(time())+8
 	db.execute('''
 			INSERT INTO posts(id, timestamp, priority,sec_level,author,source,message) 
 			VALUES (4 ,? , 1, 1, 'jan kowalski', 'fajka', 'To jest post mowiacy o niczym')
 	''', (ts,))
+	db.commit()
 
 
 
 if __name__ == "__main__":
 	
-#	if os.path.isfile(dbfile):
-#		os.remove(dbfile)
-#		create_db()
-#		db = sqlite3.connect(dbfile)
-#		put_some_data(db)
-
-
-	db = sqlite3.connect(dbfile)
-
-
+	if not os.path.isfile(dbfile):
+		create_db()
+		db = sqlite3.connect(dbfile)
+		put_some_data(db)
+	else:
+		db = sqlite3.connect(dbfile)
 #	get_messages(db,100)
-#	get_message_by_id(db,2)
-	get_messages_timestamp_range(db, 1422399346, 1422399350)
+	post_id = put_message(db, 1422399346, 1, 0, 'ktos', 'cos', 'jakis message')
+	print "\n\n"
+	get_message_by_id(db,post_id)
+#	get_messages_timestamp_range(db, 1422399346, 1422399350)
 	db.close()
 

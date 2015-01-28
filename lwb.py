@@ -2,94 +2,73 @@
 from flask import Flask, jsonify, abort, make_response, request, url_for
 from flask.ext.httpauth import HTTPBasicAuth
 import sqlite3
+import lwb_db
 
 auth = HTTPBasicAuth()
 app = Flask(__name__)
 db = sqlite3.connect('lwb.db')
 
-tasks = [
-    {
-        'id': 1,
-        'title': u'Buy groceries',
-        'description': u'Milk, Cheese, Pizza, Fruit, Tylenol', 
-        'done': False
-    },
-    {
-        'id': 2,
-        'title': u'Learn Python',
-        'description': u'Need to find a good Python tutorial on the web', 
-        'done': False
-    }
-]
 
-@app.route('/todo/api/v1.0/tasks', methods=['GET'])
-@auth.login_required
-def get_tasks():
-    return jsonify({'tasks': [make_public_task(task) for task in tasks]})
+@app.route('/todo/api/v1.0/posts', methods=['GET'])
+def get_posts():
+   posts = []
+   db = sqlite3.connect('lwb.db')
+   posts = lwb_db.get_messages(db,100)
+   db.close()
+   return jsonify({'posts':posts})
+#   return jsonify({'posts': [make_public_post(post) for post in posts]})
 
-@app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['GET'])
-def get_task(task_id):
-    task = [task for task in tasks if task['id'] == task_id]
-    if len(task) == 0:
+@app.route('/todo/api/v1.0/posts/<int:post_id>', methods=['GET'])
+def get_post(post_id):
+    db = sqlite3.connect('lwb.db')
+    post = lwb_db.get_message_by_id(db,post_id)
+    db.close()
+    if len(post) == 0:
         abort(404)
-    return jsonify({'task': task[0]})
+    return jsonify({'post': post})
+
+@app.route('/todo/api/v1.0/posts', methods=['POST'])
+def create_post():
+    if not request.json or not 'message' in request.json:
+        abort(400)
+    db = sqlite3.connect('lwb.db')
+    post_id = lwb_db.put_post(db, request.json['timestamp'], request.json['priority'], request.json['sec_level'], 
+			request.json['author'], request.json['source'], request.json['message'])
+    post = lwb_db.get_message_by_id(db,post_id)
+    db.close()
+    if len(post) == 0:
+        abort(404)
+    return jsonify({'post': post}), 201    
+
+@app.route('/todo/api/v1.0/posts/<int:post_id>', methods=['DELETE'])
+def delete_post(post_id):
+    db = sqlite3.connect('lwb.db')
+    rowcount = lwb_db.delete_post(db, post_id)
+    db.commit()
+    db.close()
+    if rowcount == 0:
+        abort(404)
+    return jsonify({'result': True})
+
+
 
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
-@app.route('/todo/api/v1.0/tasks', methods=['POST'])
-def create_task():
-    if not request.json or not 'title' in request.json:
-        abort(400)
-    task = {
-        'id': tasks[-1]['id'] + 1,
-        'title': request.json['title'],
-        'description': request.json.get('description', ""),
-        'done': False
-    }
-    tasks.append(task)
-    return jsonify({'task': task}), 201
-
-@app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['PUT'])
-def update_task(task_id):
-    task = [task for task in tasks if task['id'] == task_id]
-    if len(task) == 0:
-        abort(404)
-    if not request.json:
-        abort(400)
-    if 'title' in request.json and type(request.json['title']) != unicode:
-        abort(400)
-    if 'description' in request.json and type(request.json['description']) is not unicode:
-        abort(400)
-    if 'done' in request.json and type(request.json['done']) is not bool:
-        abort(400)
-    task[0]['title'] = request.json.get('title', task[0]['title'])
-    task[0]['description'] = request.json.get('description', task[0]['description'])
-    task[0]['done'] = request.json.get('done', task[0]['done'])
-    return jsonify({'task': task[0]})
-
-@app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['DELETE'])
-def delete_task(task_id):
-    task = [task for task in tasks if task['id'] == task_id]
-    if len(task) == 0:
-        abort(404)
-    tasks.remove(task[0])
-    return jsonify({'result': True})
-
-def make_public_task(task):
-    new_task = {}
-    for field in task:
+def make_public_post(post):
+    new_post = {}
+    for field in post:
         if field == 'id':
-            new_task['uri'] = url_for('get_task', task_id=task['id'], _external=True)
+            new_post['uri'] = url_for('get_post', post_id=post['id'], _external=True)
         else:
-            new_task[field] = task[field]
-    return new_task
+            new_post[field] = post[field]
+    return new_post
 
 @auth.get_password
 def get_password(username):
-    if username == 'miguel':
-        return 'python'
+    if username == 'test':
+        return 'test'
     return None
 
 @auth.error_handler
@@ -98,6 +77,7 @@ def unauthorized():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+   db = sqlite3.connect('lwb.db')
+   app.run(debug=True)
+   db.close()
 
-db.close()
