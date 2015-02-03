@@ -31,26 +31,40 @@ curl -u username:pass -i http://localhost:5000/lwb/api/v1.0/tasks
 curl -i -H "Content-Type: application/json" -X DELETE  http://localhost:5000/lwb/api/v1.0/posts/8
 
 ## What could be done later on.
-Wiele źródeł informacji z modularną budową.
-Różne źródła mają różne priorytety - wpływa na ich formatowanie i czas wyświetlania.
-Różne źródła mają różne klasy ochrony danych (np. bez ograniczeń, wewnętrzne).
+*  Many sources of information
 
-Agregator zbierający dane w formie kolejki danych.
-Dane wygasają po x minutach z kolejki, archiwizowane?
-Czy dane o większej pilności wpadają na początek kolejki?
+*  Different priorities - with influence on forrmatin and time of exopsure on the list.
+
+*  Different classes of security with ragard to data protection (eg. no limit, internal information).
+
+*  Aggregator gathering data into queue.
+
+*  Data timeouting from the queue, maybe archived somehow?
+
+*  Data with high priority on top of the queue?
 
 
-Jakie informacje, źródła informacji:
-informacje o wdrożeniach - czyli np jira
-informacje o wprowadzanych zmianach
-ciekawostki wysyłane przez ludzi wprowadzane przez pull requesty do kolejki
-twitter i obserwowane konta
-feedy rss
-kursy walut
-giełda
-kanał jabberowy (np. awaria)
-kanał hipchatowy (np. awaria)
+## What sources of information could we use?
 
-Format informacji tekstowy lub graficzny.
-Wysyłany tekst formatowany za pomoca tagów markdown?
+*  Information about releases?
+
+*  Jira 
+
+*  Planned changes from ChM
+
+*  Planned technical breaks.
+
+*  News athered from people (maybe as a pull requests introduced into the queue)
+
+*  Twitter and observed accounts.
+
+*  RSS feeds.
+
+*  Exchange rates?
+
+*  Stock exchange
+
+*  Jabber channels.
+
+* Hipchat rooms.
 
