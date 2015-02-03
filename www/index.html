@@ -1,0 +1,30 @@
+<!doctype html>
+<html ng-app="MyApp">
+	<head>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+
+<script>
+
+var app = angular.module("MyApp",[]);
+
+app.controller("Test", function($scope, $http) {
+    $http.get('http://localhost:5000/todo/api/v1.0/posts').
+        success(function(data, status, headers, config) {
+        	$scope.posts = data;
+		$scope.status = status;
+        });
+});
+
+</script>
+	</head>
+
+	<body>
+		<div ng-controller="Test">
+			<ul ng-repeat="post in posts.posts">
+				<li> {{post.author}} </li>
+			</ul>
+		</div>
+	</body>
+</html>
+
