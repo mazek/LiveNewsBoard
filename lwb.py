@@ -8,11 +8,9 @@ auth = HTTPBasicAuth()
 app = Flask(__name__)
 db = sqlite3.connect('lwb.db')
 
-
 @app.route('/www/<path:filename>')
 def send_foo(filename):
    return send_from_directory('./www',filename)
-#   return send_from_directory('/Users/marcin.mazurek/Documents/devel/LiveNewsBoard/www',filename)
 
 @app.route('/todo/api/v1.0/posts', methods=['GET'])
 def get_posts():
