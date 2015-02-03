@@ -1,5 +1,5 @@
 #!flask/bin/python
-from flask import Flask, jsonify, abort, make_response, request, url_for
+from flask import Flask, jsonify, abort, make_response, request, url_for, send_from_directory
 from flask.ext.httpauth import HTTPBasicAuth
 import sqlite3
 import lwb_db
@@ -8,6 +8,11 @@ auth = HTTPBasicAuth()
 app = Flask(__name__)
 db = sqlite3.connect('lwb.db')
 
+
+@app.route('/www/<path:filename>')
+def send_foo(filename):
+   return send_from_directory('./www',filename)
+#   return send_from_directory('/Users/marcin.mazurek/Documents/devel/LiveNewsBoard/www',filename)
 
 @app.route('/todo/api/v1.0/posts', methods=['GET'])
 def get_posts():
