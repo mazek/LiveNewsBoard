@@ -1,4 +1,6 @@
 # LiveNewsBoard
+
+[![Join the chat at https://gitter.im/mazek/LiveNewsBoard](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mazek/LiveNewsBoard?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Live News Board - news, data, info aggregator.
 
 This is a learning project. Don't get too serious ;)
