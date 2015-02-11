@@ -4,17 +4,29 @@
 
 Live News Board - news, data, info aggregator.
 
+Goal is to create simple server with rest api that collects information from many sources and provides it via it's api. Default as a auto refreshig webpage. Could be used as a info, twitter, currency, changes in infrastructure configuration, releases announcments etc log.
+
+
 This is a learning project. Don't get too serious ;)
 
 Any help and suggestion appreciated.
 
+
+
+
 ## Resources.
 1) http://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask
 
+
 ## What You need for sure.
+
 virtualenv flask
+
 ./flask/bin/pip install flask
+
 ./flask/bin/pip install flask-httpauth
+
+
 
 ### Testing links, assuming Your app is at: http://localhost:5000/
 
@@ -24,14 +36,16 @@ curl -i http://localhost:5000/lwb/api/v1.0/posts
 #### Adding a post.
 curl -i -H "Content-Type: application/json" -X POST -d '{"author": "jan dlugosz", "timestamp": 1422455451, "sec_level": 0, "priority": 0, "source": "twitter", "message": "Przykladowy post mowiacy o niczym"}' http://localhost:5000/lwb/api/v1.0/posts
 
-#### Not yet:
+#### Deleting a post.
+curl -i -H "Content-Type: application/json" -X DELETE  http://localhost:5000/lwb/api/v1.0/posts/8
+
+
+#### Not implemented yet:
 curl -i -H "Content-Type: application/json" -X PUT -d '{"done":true}' http://localhost:5000/lwb/api/v1.0/posts/2
 
 #### Simple auth test.
 curl -u username:pass -i http://localhost:5000/lwb/api/v1.0/tasks
 
-#### Deleting a post.
-curl -i -H "Content-Type: application/json" -X DELETE  http://localhost:5000/lwb/api/v1.0/posts/8
 
 ## What could be done later on.
 *  Many sources of information

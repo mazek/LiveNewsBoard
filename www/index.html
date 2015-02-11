@@ -13,7 +13,7 @@ load_posts();
 $interval(function(){load_posts();},1000);
 
 function load_posts(){
-    $http.get('http://localhost:5000/todo/api/v1.0/posts').
+    $http.get('http://localhost:5000/lwb/api/v1.0/posts').
         success(function(data, status, headers, config) {
         	$scope.posts = data;
 		$scope.status = status;

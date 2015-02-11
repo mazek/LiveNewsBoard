@@ -12,7 +12,7 @@ db = sqlite3.connect('lwb.db')
 def send_foo(filename):
    return send_from_directory('./www',filename)
 
-@app.route('/todo/api/v1.0/posts', methods=['GET'])
+@app.route('/lwb/api/v1.0/posts', methods=['GET'])
 def get_posts():
    posts = []
    db = sqlite3.connect('lwb.db')
@@ -21,7 +21,7 @@ def get_posts():
    return jsonify({'posts':posts})
 #   return jsonify({'posts': [make_public_post(post) for post in posts]})
 
-@app.route('/todo/api/v1.0/posts/<int:post_id>', methods=['GET'])
+@app.route('/lwb/api/v1.0/posts/<int:post_id>', methods=['GET'])
 def get_post(post_id):
     db = sqlite3.connect('lwb.db')
     post = lwb_db.get_message_by_id(db,post_id)
@@ -30,7 +30,7 @@ def get_post(post_id):
         abort(404)
     return jsonify({'post': post})
 
-@app.route('/todo/api/v1.0/posts', methods=['POST'])
+@app.route('/lwb/api/v1.0/posts', methods=['POST'])
 def create_post():
     if not request.json or not 'message' in request.json:
         abort(400)
@@ -43,7 +43,7 @@ def create_post():
         abort(404)
     return jsonify({'post': post}), 201    
 
-@app.route('/todo/api/v1.0/posts/<int:post_id>', methods=['DELETE'])
+@app.route('/lwb/api/v1.0/posts/<int:post_id>', methods=['DELETE'])
 def delete_post(post_id):
     db = sqlite3.connect('lwb.db')
     rowcount = lwb_db.delete_post(db, post_id)
