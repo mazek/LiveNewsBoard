@@ -1,6 +1,7 @@
 # LiveNewsBoard
 
 [![Join the chat at https://gitter.im/mazek/LiveNewsBoard](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mazek/LiveNewsBoard?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Live News Board - news, data, info aggregator.
 
 This is a learning project. Don't get too serious ;)
@@ -15,21 +16,21 @@ virtualenv flask
 ./flask/bin/pip install flask
 ./flask/bin/pip install flask-httpauth
 
-## Testing links, assuming Your app is at: http://localhost:5000/
+### Testing links, assuming Your app is at: http://localhost:5000/
 
-### Get all posts.
+#### Get all posts.
 curl -i http://localhost:5000/lwb/api/v1.0/posts
 
-### Adding a post.
+#### Adding a post.
 curl -i -H "Content-Type: application/json" -X POST -d '{"author": "jan dlugosz", "timestamp": 1422455451, "sec_level": 0, "priority": 0, "source": "twitter", "message": "Przykladowy post mowiacy o niczym"}' http://localhost:5000/lwb/api/v1.0/posts
 
-### Not yet:
+#### Not yet:
 curl -i -H "Content-Type: application/json" -X PUT -d '{"done":true}' http://localhost:5000/lwb/api/v1.0/posts/2
 
-### Simple auth test.
+#### Simple auth test.
 curl -u username:pass -i http://localhost:5000/lwb/api/v1.0/tasks
 
-### Deleting a post.
+#### Deleting a post.
 curl -i -H "Content-Type: application/json" -X DELETE  http://localhost:5000/lwb/api/v1.0/posts/8
 
 ## What could be done later on.
