@@ -139,7 +139,7 @@ if __name__ == "__main__":
 	else:
 		db = sqlite3.connect(dbfile)
 #	get_messages(db,100)
-	post_id = put_message(db, 1422399346, 1, 0, 'ktos', 'cos', 'jakis message')
+	post_id = put_post(db, 1422399346, 1, 0, 'ktos', 'cos', 'jakis message')
 	print "\n\n"
 	get_message_by_id(db,post_id)
 #	get_messages_timestamp_range(db, 1422399346, 1422399350)
