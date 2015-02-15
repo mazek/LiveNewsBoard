@@ -13,11 +13,6 @@ Any help and suggestion appreciated.
 
 
 
-
-## Resources.
-1) http://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask
-
-
 ## What You need for sure.
 
 virtualenv flask
@@ -84,4 +79,21 @@ curl -u username:pass -i http://localhost:5000/lwb/api/v1.0/tasks
 *  Jabber channels.
 
 * Hipchat rooms.
+
+
+
+## Resources.
+* http://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask
+
+* http://codeforgeek.com/2014/09/refresh-div-angularjs-interval/
+
+* http://codeforgeek.com/2014/09/two-way-data-binding-angularjs/
+
+* http://tweetdump.info/320704340320993280/
+
+* http://www.456bereastreet.com/lab/developing_with_web_standards/csslayout/2-col/
+
+* https://docs.angularjs.org/api
+
+
 
