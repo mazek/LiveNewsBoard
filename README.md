@@ -81,7 +81,6 @@ curl -u username:pass -i http://localhost:5000/lwb/api/v1.0/tasks
 * Hipchat rooms.
 
 
-
 ## Resources.
 * http://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask
 
