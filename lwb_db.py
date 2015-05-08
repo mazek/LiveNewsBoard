@@ -131,7 +131,6 @@ def put_some_data(db):
 
 
 if __name__ == "__main__":
-	
 	if not os.path.isfile(dbfile):
 		create_db()
 		db = sqlite3.connect(dbfile)
@@ -143,5 +142,5 @@ if __name__ == "__main__":
 	print "\n\n"
 	get_message_by_id(db,post_id)
 #	get_messages_timestamp_range(db, 1422399346, 1422399350)
-	db.close()
+	#db.close()
 
