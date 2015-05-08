@@ -4,7 +4,7 @@ FROM ubuntu
 MAINTAINER Marcin Mazurek <marcin.mazurek@allegrogroup.com>
 
 # Install necessary packages.
-RUN apt-get update && apt-get install -y python-pip sqlite
+RUN apt-get update && apt-get install -y python-pip sqlite git
 RUN pip install flask flask-httpauth
 
 
