@@ -4,14 +4,15 @@ FROM ubuntu
 MAINTAINER Marcin Mazurek <marcin.mazurek@allegrogroup.com>
 
 # Install necessary packages.
-RUN apt-get update && apt-get install -y python-flask python-flask-httpauth sqlite
+RUN apt-get update && apt-get install -y python-pip sqlite
+RUN pip install flask flask-httpauth
 
 
-RUN mkdir /root/lwb
+RUN mkdir /root/
 RUN git clone https://github.com/mazek/LiveNewsBoard.git /root/lwb/
 
 # Initialize sqlite db.
-RUN /root/lwb/python lwb_db.py
+RUN python /root/lwb/lwb_db.py
 
 # Clean-up
 RUN apt-get clean
