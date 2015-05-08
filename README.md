@@ -15,31 +15,34 @@ Any help and suggestion appreciated.
 
 ## What You need for sure.
 
-virtualenv flask
+`virtualenv flask`
 
-./flask/bin/pip install flask
+`./flask/bin/pip install flask`
 
-./flask/bin/pip install flask-httpauth
+`./flask/bin/pip install flask-httpauth`
 
 
+## Run instance
+
+Just type `python lwb.py` to run server on port 5000.
 
 ### Testing links, assuming Your app is at: http://localhost:5000/
 
 #### Get all posts.
-curl -i http://localhost:5000/lwb/api/v1.0/posts
+`curl -i http://localhost:5000/lwb/api/v1.0/posts`
 
 #### Adding a post.
-curl -i -H "Content-Type: application/json" -X POST -d '{"author": "jan dlugosz", "timestamp": 1422455451, "sec_level": 0, "priority": 0, "source": "twitter", "message": "Przykladowy post mowiacy o niczym"}' http://localhost:5000/lwb/api/v1.0/posts
+`curl -i -H "Content-Type: application/json" -X POST -d '{"author": "jan dlugosz", "timestamp": 1422455451, "sec_level": 0, "priority": 0, "source": "twitter", "message": "Przykladowy post mowiacy o niczym"}' http://localhost:5000/lwb/api/v1.0/posts`
 
 #### Deleting a post.
-curl -i -H "Content-Type: application/json" -X DELETE  http://localhost:5000/lwb/api/v1.0/posts/8
+`curl -i -H "Content-Type: application/json" -X DELETE  http://localhost:5000/lwb/api/v1.0/posts/8`
 
 
 #### Not implemented yet:
-curl -i -H "Content-Type: application/json" -X PUT -d '{"done":true}' http://localhost:5000/lwb/api/v1.0/posts/2
+`curl -i -H "Content-Type: application/json" -X PUT -d '{"done":true}' http://localhost:5000/lwb/api/v1.0/posts/2`
 
 #### Simple auth test.
-curl -u username:pass -i http://localhost:5000/lwb/api/v1.0/tasks
+`curl -u username:pass -i http://localhost:5000/lwb/api/v1.0/tasks`
 
 
 ## What could be done later on.
