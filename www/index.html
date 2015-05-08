@@ -27,7 +27,7 @@ function load_posts(){
 	<body>
 		<div ng-controller="LWBControler">
 			
-			<table class="lwb" ng-repeat="post in posts.posts">
+			<table class="lwb" ng-repeat="post in posts.posts | limitTo: 10 | orderBy:'-timestamp'">
 				<tr><td> {{post.message}}</td><td width="100px" >  {{post.author}} </td></tr>
 
 			</table>
