@@ -8,7 +8,6 @@ RUN apt-get update && apt-get install -y python-pip sqlite
 RUN pip install flask flask-httpauth
 
 
-RUN mkdir /root/
 RUN git clone https://github.com/mazek/LiveNewsBoard.git /root/lwb/
 
 # Initialize sqlite db.
