@@ -21,12 +21,19 @@ Any help and suggestion appreciated.
 
 `./flask/bin/pip install flask-httpauth`
 
+## Initiate sqlite db.
+
+Just run `python lwb_db.py`. This will create `lwb.db` file with sqlite database in it.
 
 ## Run instance
 
 Just type `python lwb.py` to run server on port 5000.
 
 ### Testing links, assuming Your app is at: http://localhost:5000/
+
+#### Accessing html page
+
+To access web page on localhost: `http://localhost:5000/www/index.html`
 
 #### Get all posts.
 `curl -i http://localhost:5000/lwb/api/v1.0/posts`
