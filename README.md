@@ -15,11 +15,16 @@ Any help and suggestions appreciated.
 
 ## What You need for sure.
 
-`virtualenv flask`
+`apt-get install python-pip sqlite git`
+`pip install flask`
+`pip install flask-httpauth`
 
-`./flask/bin/pip install flask`
+## Prepare a directory where You will hold all the files anou download the code.
 
-`./flask/bin/pip install flask-httpauth`
+`mkdir ./lnb`
+`cd lnb`
+`git clone https://github.com/mazek/LiveNewsBoard.git .`
+
 
 ## Initiate sqlite db.
 
