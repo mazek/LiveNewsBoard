@@ -11,64 +11,54 @@ Any help and suggestions appreciated.
 
 ## What You need for sure.
 
-`apt-get install python-pip sqlite git`
-
-`virtualenv virt`
-
-`source virt/bin/activate`
+`apt-get install python-pip python-virtualenv git redis-server`
 
 ## Prepare a directory where you will hold all the files and download the code.
 
 `mkdir ./lnb && cd lnb`
 
+`virtualenv virt`
+
+`source virt/bin/activate`
+
 `git clone https://github.com/mazek/LiveNewsBoard.git .`
+
+`cd LiveNewsBoard`
 
 `make install`
 
-
 ## Initialization
 
-Just run `lwb --generate-fixtures`. This will create sample demo data.
+Create example data with `lwb --generate-fixtures`.
 
 ## Run instance
 
-Just type `lwb` to run server on port 5000.
+By default, lwb uses redis server as a backend. 
+To start redis, just type `redis-server` on the second terminal.
+Now you can just type `lwb` to run app server on port 5000.
 
-### Testing links, assuming Your app is at: http://localhost:5000/
 
-#### Accessing html page
+#### Start!
 
-To access web page on localhost: `http://localhost:5000/www/index.html`
+Point your browser to: http://localhost:5000/www/index.html
 
 #### Get all posts.
-curl -i http://localhost:5000/api/v1.0/posts
-
-#### Adding a post.
-curl -i -H "Content-Type: application/json" -X POST -d '{"author": "jan dlugosz", "sec_level": 0, "priority": 0, "source": "twitter", "message": "Przykladowy post mowiacy o niczym"}' http://localhost:5000/api/v1.0/posts
-
-#### Deleting a post.
-curl -i -H "Content-Type: application/json" -X DELETE  http://localhost:5000/api/v1.0/posts/8
-
-
-#### Not implemented yet:
-curl -i -H "Content-Type: application/json" -X PUT -d '{"done":true}' http://localhost:5000/api/v1.0/posts/2
+`curl -i http://localhost:5000/api/v1.0/posts`
 
 #### Simple auth test.
-curl -u username:pass -i http://localhost:5000/api/v1.0/tasks
+`curl -u username:pass -i http://localhost:5000/api/v1.0/tasks`
 
 #### Adding a post.
-`curl -i -H "Content-Type: application/json" -X POST -d '{"author": "jan dlugosz", "timestamp": 1422455451, "sec_level": 0, "priority": 0, "source": "twitter", "message": "Przykladowy post mowiacy o niczym"}' http://localhost:5000/lwb/api/v1.0/posts`
+`curl -i -H "Content-Type: application/json" -X POST -d '{"author": "jan dlugosz", "sec_level": 0, "priority": 0, "source": "twitter", "message": "Przykladowy post mowiacy o niczym"}' http://localhost:5000/api/v1.0/posts`
 
-#### Deleting a post.
+#### Deleting a post(not implemented yet).
 `curl -i -H "Content-Type: application/json" -X DELETE  http://localhost:5000/lwb/api/v1.0/posts/8`
 
-
-#### Not implemented yet:
+#### Patch a post(Not implemented yet).
 `curl -i -H "Content-Type: application/json" -X PUT -d '{"done":true}' http://localhost:5000/lwb/api/v1.0/posts/2`
 
 #### Simple auth test.
-`curl -u username:pass -i http://localhost:5000/lwb/api/v1.0/tasks`
->>>>>>> bf0b03e7065edf5603bc86c76984cdacce324848
+`curl -u username:pass -i http://localhost:5000/api/v1.0/tasks`
 
 
 ## What could be done later on.
