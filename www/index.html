@@ -26,7 +26,7 @@
 <body>
 	<div ng-controller="LWBControler">
 		<table class="lwb">
-			<tr ng-repeat="post in posts.posts | limitTo: 100 | orderBy:'-timestamp'"  >
+			<tr ng-repeat="post in posts.posts | limitTo: 100 | orderBy:'-timestamp'" ng-animate="'animate'" >
 				<td> {{post.message}}</td><td width="100px" >  {{post.author}} </td>
             </tr>
 		</table>
