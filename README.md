@@ -6,26 +6,39 @@ Live News Board - news, data, info aggregator.
 
 Goal is to create simple server with rest api that collects information from many sources and provides it via it's api. Default as a auto refreshing webpage. Could be used as a info, twitter, currency, changes in infrastructure configuration, releases announcements etc log.
 
-
 This is a learning project. Don't get too serious ;)
-
-Any help and suggestion appreciated.
-
-
+Any help and suggestions appreciated.
 
 ## What You need for sure.
 
-virtualenv virt
+`apt-get install python-pip sqlite git`
 
-source virt/bin/activate
+`virtualenv virt`
 
-make install
+`source virt/bin/activate`
 
-lwb --generate-fixtures  
+## Prepare a directory where you will hold all the files and download the code.
 
-lwb
+`mkdir ./lnb && cd lnb`
+
+`git clone https://github.com/mazek/LiveNewsBoard.git .`
+
+`make install`
+
+
+## Initialization
+
+Just run `lwb --generate-fixtures`. This will create sample demo data.
+
+## Run instance
+
+Just type `lwb` to run server on port 5000.
 
 ### Testing links, assuming Your app is at: http://localhost:5000/
+
+#### Accessing html page
+
+To access web page on localhost: `http://localhost:5000/www/index.html`
 
 #### Get all posts.
 curl -i http://localhost:5000/api/v1.0/posts
@@ -42,6 +55,20 @@ curl -i -H "Content-Type: application/json" -X PUT -d '{"done":true}' http://loc
 
 #### Simple auth test.
 curl -u username:pass -i http://localhost:5000/api/v1.0/tasks
+
+#### Adding a post.
+`curl -i -H "Content-Type: application/json" -X POST -d '{"author": "jan dlugosz", "timestamp": 1422455451, "sec_level": 0, "priority": 0, "source": "twitter", "message": "Przykladowy post mowiacy o niczym"}' http://localhost:5000/lwb/api/v1.0/posts`
+
+#### Deleting a post.
+`curl -i -H "Content-Type: application/json" -X DELETE  http://localhost:5000/lwb/api/v1.0/posts/8`
+
+
+#### Not implemented yet:
+`curl -i -H "Content-Type: application/json" -X PUT -d '{"done":true}' http://localhost:5000/lwb/api/v1.0/posts/2`
+
+#### Simple auth test.
+`curl -u username:pass -i http://localhost:5000/lwb/api/v1.0/tasks`
+>>>>>>> bf0b03e7065edf5603bc86c76984cdacce324848
 
 
 ## What could be done later on.
