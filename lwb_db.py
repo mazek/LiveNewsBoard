@@ -1,4 +1,4 @@
-#!/usr/bin.python
+#!/usr/bin/python
 
 import sqlite3
 from time import time
@@ -38,11 +38,11 @@ def put_post(db, timestamp, priority, sec_level, author, source, message):
 	cursor.execute('''SELECT max(id) from posts''')
 	post_id = cursor.fetchone()[0] + 1
 	db.execute('''
-		INSERT INTO posts(id, timestamp, priority,sec_level,author,source,message) 
+		INSERT INTO posts(id, timestamp, priority,sec_level,author,source,message)
 		VALUES (?, ?, ?, ?, ?, ?, ?)
 	''', (post_id, timestamp, priority, sec_level, author, source, message))
 	db.commit()
-	return post_id	
+	return post_id
 
 def get_messages(db,limit = 0):
 	posts = []
@@ -108,27 +108,25 @@ def put_some_data(db):
 		''')
 	ts = int(time())
 	db.execute('''
-			INSERT INTO posts(id, timestamp, priority,sec_level,author,source,message) 
+			INSERT INTO posts(id, timestamp, priority,sec_level,author,source,message)
 			VALUES (1 ,? ,0 ,0 , 'jan dlugosz', 'twitter', 'Przykladowy post mowiacy o niczym')
 	''', (ts,))
 	ts = int(time())+2
 	db.execute('''
-			INSERT INTO posts(id, timestamp, priority,sec_level,author,source,message) 
+			INSERT INTO posts(id, timestamp, priority,sec_level,author,source,message)
 			VALUES (2 ,? , 1, 0, 'ada nowak', 'ulica', 'Kolejny post mowiacy o niczym')
 	''', (ts,))
 	ts = int(time())+4
 	db.execute('''
-			INSERT INTO posts(id, timestamp, priority,sec_level,author,source,message) 
+			INSERT INTO posts(id, timestamp, priority,sec_level,author,source,message)
 			VALUES (3 ,? , 0, 1, 'john smith', 'kuchnia', 'Jeszcze inny post mowiacy o niczym')
 	''', (ts,))
 	ts = int(time())+8
 	db.execute('''
-			INSERT INTO posts(id, timestamp, priority,sec_level,author,source,message) 
+			INSERT INTO posts(id, timestamp, priority,sec_level,author,source,message)
 			VALUES (4 ,? , 1, 1, 'jan kowalski', 'fajka', 'To jest post mowiacy o niczym')
 	''', (ts,))
 	db.commit()
-
-
 
 if __name__ == "__main__":
 	if not os.path.isfile(dbfile):

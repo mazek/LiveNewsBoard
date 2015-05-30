@@ -9,7 +9,7 @@ Goal is to create simple server with rest api that collects information from man
 
 This is a learning project. Don't get too serious ;)
 
-Any help and suggestion appreciated.
+Any help and suggestions appreciated.
 
 
 
@@ -70,7 +70,7 @@ To access web page on localhost: `http://localhost:5000/www/index.html`
 
 *  Information about releases?
 
-*  Jira 
+*  Jira
 
 *  Planned changes from ChM
 

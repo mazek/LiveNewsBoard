@@ -4,34 +4,33 @@
 	<link rel="stylesheet" href="lwb.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
 
-<script>
+    <script>
 
-var app = angular.module("LWBApp",[]);
+        var app = angular.module("LWBApp",[]);
 
-app.controller("LWBControler", function($scope, $http, $interval) {
-load_posts();
-$interval(function(){load_posts();},1000);
+        app.controller("LWBControler", function($scope, $http, $interval) {
+            load_posts();
+            $interval(function(){load_posts();},1000);
 
-function load_posts(){
-    $http.get('http://localhost:5000/lwb/api/v1.0/posts').
-        success(function(data, status, headers, config) {
-        	$scope.posts = data;
-		$scope.status = status;
+            function load_posts() {
+                $http.get('http://localhost:5000/lwb/api/v1.0/posts').
+                    success(function(data, status, headers, config) {
+            	       $scope.posts = data;
+    		          $scope.status = status;
+                    });
+            };
         });
-};
-});
 
-</script>
+    </script>
 </head>
-
-	<body>
-		<div ng-controller="LWBControler">
-			
-			<table class="lwb" ng-repeat="post in posts.posts | limitTo: 10 | orderBy:'-timestamp'">
-				<tr><td> {{post.message}}</td><td width="100px" >  {{post.author}} </td></tr>
-
-			</table>
-		</div>
-	</body>
+<body>
+	<div ng-controller="LWBControler">
+		<table class="lwb">
+			<tr ng-repeat="post in posts.posts | limitTo: 100 | orderBy:'-timestamp'"  >
+				<td> {{post.message}}</td><td width="100px" >  {{post.author}} </td>
+            </tr>
+		</table>
+	</div>
+</body>
 </html>
 
