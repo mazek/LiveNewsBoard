@@ -3,8 +3,9 @@
 import sqlite3
 from time import time
 import os
+from config import *
 
-dbfile='lwb.db'
+dbfile = LNB_DB
 db = None
 
 def create_db():
@@ -27,7 +28,6 @@ def create_db():
 		''')
 	except Exception as e:
 		db.rollback()
-		#raise e
 
 	finally:
 		db.close()
@@ -44,7 +44,7 @@ def put_post(db, timestamp, priority, sec_level, author, source, message):
 	db.commit()
 	return post_id
 
-def get_messages(db,limit = 0):
+def get_posts(db,limit = 0):
 	posts = []
 	cursor = db.cursor()
 	cursor.execute('''SELECT * from posts LIMIT %s ''' % limit)
@@ -62,7 +62,7 @@ def get_messages(db,limit = 0):
 	print posts
 	return posts
 
-def get_message_by_id(db,id = 0):
+def get_post_by_id(db,id = 0):
 	post = {}
 	cursor = db.cursor()
 	cursor.execute('''SELECT * from posts WHERE id = %s ''' % id)
@@ -79,7 +79,7 @@ def get_message_by_id(db,id = 0):
 	print post
 	return post
 
-def get_messages_timestamp_range(db,timestamp_start, timestamp_end):
+def get_posts_timestamp_range(db,timestamp_start, timestamp_end):
 	posts = []
 	cursor = db.cursor()
 	cursor.execute('''SELECT * from posts WHERE timestamp >= %s and timestamp <= %s ''' % (timestamp_start, timestamp_end))
@@ -135,10 +135,10 @@ if __name__ == "__main__":
 		put_some_data(db)
 	else:
 		db = sqlite3.connect(dbfile)
-#	get_messages(db,100)
+#	get_posts(db,100)
 	post_id = put_post(db, 1422399346, 1, 0, 'ktos', 'cos', 'jakis message')
 	print "\n\n"
-	get_message_by_id(db,post_id)
-#	get_messages_timestamp_range(db, 1422399346, 1422399350)
+	get_post_by_id(db,post_id)
+#	get_posts_timestamp_range(db, 1422399346, 1422399350)
 	#db.close()
 

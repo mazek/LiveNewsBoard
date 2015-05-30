@@ -2,12 +2,14 @@
 
 from flask import Flask, jsonify, abort, make_response, request, url_for, send_from_directory
 from flask.ext.httpauth import HTTPBasicAuth
+from config import *
 import sqlite3
 import lwb_db
 
-auth = HTTPBasicAuth()
-app = Flask(__name__)
-db = sqlite3.connect('lwb.db')
+dbname	=	LNB_DB
+auth	=	HTTPBasicAuth()
+app	=	Flask(__name__)
+db	=	sqlite3.connect(dbname)
 
 @app.route('/www/<path:filename>')
 def send_foo(filename):
@@ -17,15 +19,14 @@ def send_foo(filename):
 def get_posts():
    posts = []
    db = sqlite3.connect('lwb.db')
-   posts = lwb_db.get_messages(db,100)
+   posts = lwb_db.get_posts(db,100)
    db.close()
    return jsonify({'posts':posts})
-#   return jsonify({'posts': [make_public_post(post) for post in posts]})
 
 @app.route('/lwb/api/v1.0/posts/<int:post_id>', methods=['GET'])
 def get_post(post_id):
     db = sqlite3.connect('lwb.db')
-    post = lwb_db.get_message_by_id(db,post_id)
+    post = lwb_db.get_post_by_id(db,post_id)
     db.close()
     if len(post) == 0:
         abort(404)
@@ -36,13 +37,13 @@ def create_post():
     if not request.json or not 'message' in request.json:
         abort(400)
     db = sqlite3.connect('lwb.db')
-    post_id = lwb_db.put_post(db, request.json['timestamp'], request.json['priority'], request.json['sec_level'], 
+    post_id = lwb_db.put_post(db, request.json['timestamp'], request.json['priority'], request.json['sec_level'],
 			request.json['author'], request.json['source'], request.json['message'])
-    post = lwb_db.get_message_by_id(db,post_id)
+    post = lwb_db.get_post_by_id(db,post_id)
     db.close()
     if len(post) == 0:
         abort(404)
-    return jsonify({'post': post}), 201    
+    return jsonify({'post': post}), 201
 
 @app.route('/lwb/api/v1.0/posts/<int:post_id>', methods=['DELETE'])
 def delete_post(post_id):
@@ -81,7 +82,7 @@ def unauthorized():
 
 
 if __name__ == '__main__':
-   db = sqlite3.connect('lwb.db')
-   app.run(debug=True)
+   db = sqlite3.connect(dbname)
+   app.run(LNB_HOST,LNB_PORT,debug=True)
    db.close()
 
