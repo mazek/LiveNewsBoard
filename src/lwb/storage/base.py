@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
 import abc
-from abc_base import PluginBase  # noqa
 
 
 class Storage(object):
@@ -17,15 +21,15 @@ class Storage(object):
         raise NotImplemented()
 
     @abc.abstractmethod
-    def get_messages(self, imit=0):
+    def get_posts(self, imit=0):
         raise NotImplemented()
 
     @abc.abstractmethod
-    def get_message_by_id(self, id=0):
+    def get_post_by_uid(self, uid=0):
         raise NotImplemented()
 
     @abc.abstractmethod
-    def get_messages_timestamp_range(self, timestamp_start, timestamp_end):
+    def get_posts_timestamp_range(self, timestamp_start, timestamp_end):
         raise NotImplemented()
 
     @abc.abstractmethod
