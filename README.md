@@ -4,74 +4,73 @@
 
 Live News Board - news, data, info aggregator.
 
-Goal is to create simple server with rest api that collects information from many sources and provides it via it's api. Default as a auto refreshig webpage. Could be used as a info, twitter, currency, changes in infrastructure configuration, releases announcments etc log.
-
+Goal is to create simple server with rest api that collects information from many sources and provides it via it's api. Default as a auto refreshing webpage. Could be used as a info, twitter, currency, changes in infrastructure configuration, releases announcements etc log.
 
 This is a learning project. Don't get too serious ;)
-
 Any help and suggestions appreciated.
-
-
 
 ## What You need for sure.
 
-`apt-get install python-pip sqlite git`
+`apt-get install python-pip python-virtualenv git redis-server`
 
-`pip install flask`
+## Prepare a directory where you will hold all the files and download the code.
 
-`pip install flask-httpauth`
+`mkdir ./lnb && cd lnb`
 
+`virtualenv virt`
 
-## Prepare a directory where You will hold all the files anou download the code.
-
-`mkdir ./lnb`
-
-`cd lnb`
+`source virt/bin/activate`
 
 `git clone https://github.com/mazek/LiveNewsBoard.git .`
 
+`cd LiveNewsBoard`
 
-## Initiate sqlite db.
+`make install`
 
-Just run `python lwb_db.py`. This will create `lwb.db` file with sqlite database in it.
+## Initialization
+
+Create example data with `lwb --generate-fixtures`.
 
 ## Run instance
 
-Just type `python lwb.py` to run server on port 5000.
+By default, lwb uses redis server as a backend. 
+To start redis, just type `redis-server` on the second terminal.
+Now you can just type `lwb` to run app server on port 5000.
 
-### Testing links, assuming Your app is at: http://localhost:5000/
 
-#### Accessing html page
+#### Start!
 
-To access web page on localhost: `http://localhost:5000/www/index.html`
+Point your browser to: http://localhost:5000/www/index.html
 
 #### Get all posts.
-`curl -i http://localhost:5000/lwb/api/v1.0/posts`
+`curl -i http://localhost:5000/api/v1.0/posts`
+
+#### Simple auth test.
+`curl -u username:pass -i http://localhost:5000/api/v1.0/tasks`
 
 #### Adding a post.
-`curl -i -H "Content-Type: application/json" -X POST -d '{"author": "jan dlugosz", "timestamp": 1422455451, "sec_level": 0, "priority": 0, "source": "twitter", "message": "Przykladowy post mowiacy o niczym"}' http://localhost:5000/lwb/api/v1.0/posts`
+`curl -i -H "Content-Type: application/json" -X POST -d '{"author": "jan dlugosz", "sec_level": 0, "priority": 0, "source": "twitter", "message": "Przykladowy post mowiacy o niczym"}' http://localhost:5000/api/v1.0/posts`
 
-#### Deleting a post.
+#### Deleting a post(not implemented yet).
 `curl -i -H "Content-Type: application/json" -X DELETE  http://localhost:5000/lwb/api/v1.0/posts/8`
 
-
-#### Not implemented yet:
+#### Patch a post(Not implemented yet).
 `curl -i -H "Content-Type: application/json" -X PUT -d '{"done":true}' http://localhost:5000/lwb/api/v1.0/posts/2`
 
 #### Simple auth test.
-`curl -u username:pass -i http://localhost:5000/lwb/api/v1.0/tasks`
+`curl -u username:pass -i http://localhost:5000/api/v1.0/tasks`
 
 
 ## What could be done later on.
 *  Many sources of information
 
-*  Different priorities - with influence on forrmatin and time of exopsure on the list.
+*  Different priorities - with influence on formating and time of exopsure on the list.
 
-*  Different classes of security with ragard to data protection (eg. no limit, internal information).
+*  Different classes of security with regard to data protection (eg. no limit, internal information).
 
 *  Aggregator gathering data into queue.
 
-*  Data timeouting from the queue, maybe archived somehow?
+*  Data timeout from the queue, maybe archived somehow?
 
 *  Data with high priority on top of the queue?
 
@@ -98,7 +97,7 @@ To access web page on localhost: `http://localhost:5000/www/index.html`
 
 *  Jabber channels.
 
-* Hipchat rooms.
+*  Hipchat rooms.
 
 
 ## Resources.
