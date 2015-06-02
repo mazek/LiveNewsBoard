@@ -4,13 +4,13 @@ from distutils.core import setup
 from setuptools import setup, find_packages
 
 
-setup(name='lwb',
+setup(name='lnb',
       version='1.0',
       packages=find_packages('src'),
       package_dir={'': 'src'},
       entry_points={
           'console_scripts': [
-              'lwb = lwb.main:__main__',
+              'lnb = lnb.main:__main__',
           ],
       },
       )
