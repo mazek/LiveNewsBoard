@@ -21,7 +21,7 @@ Any help and suggestions appreciated.
 
 `source virt/bin/activate`
 
-`git clone https://github.com/mazek/LiveNewsBoard.git .`
+`git clone https://github.com/mazek/LiveNewsBoard.git`
 
 `cd LiveNewsBoard`
 
