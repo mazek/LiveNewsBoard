@@ -1,7 +1,7 @@
 .timer {
 	border-bottom: solid #0f0 1px;
 }
-table.lwb {
+table.lnb {
 	margin-top: 40px;
 	border-collapse: collapse;
 	border-spacing: 0;
@@ -12,12 +12,12 @@ table.lwb {
 	margin-right:auto;
 }
 
-table.lwb td {
+table.lnb td {
 	padding: 8px;
 	margin: 0;
 }
 
-table.lwb tr {
+table.lnb tr {
 	padding: 0;
 	margin: 0;
 }

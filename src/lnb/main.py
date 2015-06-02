@@ -15,7 +15,7 @@ from flask import (
     send_from_directory)
 from flask.ext.httpauth import HTTPBasicAuth
 
-from lwb.storage.redis import RedisStorage  # change to SqliteStorage if want
+from lnb.storage.redis import RedisStorage  # change to SqliteStorage if want
 
 
 app = Flask(__name__)

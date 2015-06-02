@@ -1,17 +1,17 @@
 <!doctype html>
 
-<html ng-app="LWBApp">
+<html ng-app="LNBApp">
 <head>
-	<link rel="stylesheet" href="lwb.css">
+	<link rel="stylesheet" href="lnb.css">
 	<link href='http://fonts.googleapis.com/css?family=Orbitron:400' rel='stylesheet' type='text/css'>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
 	<script type="text/javascript" src="board.js"> </script>
 
 </head>
 	<body>
-		<div ng-controller="LWBControler">
+		<div ng-controller="LNBControler">
 			<div class="timer">Time: {{ time }}</div>
-			<table class="lwb">
+			<table class="lnb">
 				<tr ng-repeat="post in posts">
 					<td> {{post.message}}</td>
 					<td> {{post.author}} </td>

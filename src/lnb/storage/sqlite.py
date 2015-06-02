@@ -8,10 +8,10 @@ from __future__ import unicode_literals
 import sqlite3
 from time import time
 
-from lwb.storage.base import Storage
+from lnb.storage.base import Storage
 import os
 
-dbfile = 'lwb.db'
+dbfile = 'lnb.db'
 db = None
 
 

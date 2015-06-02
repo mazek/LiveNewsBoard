@@ -11,7 +11,7 @@ import json
 import hashlib
 import time
 
-from lwb.storage.base import Storage
+from lnb.storage.base import Storage
 
 
 class RedisStorage(Storage):
