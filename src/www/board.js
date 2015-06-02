@@ -1,5 +1,5 @@
-var app = angular.module("LWBApp",[]);
-app.controller("LWBControler", function($scope, $http, $interval) {
+var app = angular.module("LNBApp",[]);
+app.controller("LNBControler", function($scope, $http, $interval) {
 	$interval(load_posts, 1000);
 	load_posts();
 
