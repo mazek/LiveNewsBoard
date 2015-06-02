@@ -52,10 +52,10 @@ Point your browser to: http://localhost:5000/www/index.html
 `curl -i -H "Content-Type: application/json" -X POST -d '{"author": "jan dlugosz", "sec_level": 0, "priority": 0, "source": "twitter", "message": "Przykladowy post mowiacy o niczym"}' http://localhost:5000/api/v1.0/posts`
 
 #### Deleting a post(not implemented yet).
-`curl -i -H "Content-Type: application/json" -X DELETE  http://localhost:5000/lnb/api/v1.0/posts/8`
+`curl -i -H "Content-Type: application/json" -X DELETE  http://localhost:5000/api/v1.0/posts/8`
 
 #### Patch a post(Not implemented yet).
-`curl -i -H "Content-Type: application/json" -X PUT -d '{"done":true}' http://localhost:5000/lnb/api/v1.0/posts/2`
+`curl -i -H "Content-Type: application/json" -X PUT -d '{"done":true}' http://localhost:5000/api/v1.0/posts/2`
 
 #### Simple auth test.
 `curl -u username:pass -i http://localhost:5000/api/v1.0/tasks`
