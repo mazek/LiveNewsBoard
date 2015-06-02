@@ -12,7 +12,6 @@ gevent-socketio==0.3.6
 gevent-websocket==0.9.5
 greenlet==0.4.7
 itsdangerous==0.24
-lnb==1.0
 pyparsing==2.0.3
 redis==2.10.3
 requests==2.7.0
