@@ -35,37 +35,40 @@ class SqliteStorage(Storage):
 
             cursor = self.db.cursor()
             cursor.execute('''
-			    CREATE TABLE users(id INTEGER PRIMARY KEY,  username TEXT unique, password TEXT)
+                           CREATE TABLE users(id INTEGER PRIMARY KEY,
+                           username TEXT unique, password TEXT)
                            ''')
 
             cursor.execute('''
-			    CREATE TABLE posts(id INTEGER PRIMARY KEY,
-					timestamp  INTEGER,
-					priority INTEGER,
-					sec_level INTEGER,
-					author TEXT,
-					source TEXT,
-					message TEXT)
+                           CREATE TABLE posts(id INTEGER PRIMARY KEY,
+                                        timestamp  INTEGER,
+                                        priority INTEGER,
+                                        sec_level INTEGER,
+                                        author TEXT,
+                                        source TEXT,
+                                        message TEXT)
                            ''')
         except Exception as e:
             self.db.rollback()
-            #raise e
+#            #raise e
 
         finally:
             self.db.close()
 
-
-    def put_post(self, timestamp, priority, sec_level, author, source, message):
+    def put_post(self, timestamp, priority, sec_level,
+                 author, source, message):
         cursor = self.db.cursor()
         cursor.execute('''SELECT max(id) from posts''')
         post_id = cursor.fetchone()[0] + 1
         self.db.execute('''
-			INSERT INTO posts(id, timestamp, priority,sec_level,author,source,message)
-			VALUES (?, ?, ?, ?, ?, ?, ?)
-		''', (post_id, timestamp, priority, sec_level, author, source, message))
+                        INSERT INTO posts(id, timestamp, priority, sec_level,
+                        author,source,message)
+                        VALUES (?, ?, ?, ?, ?, ?, ?)
+                        ''',
+                        (post_id, timestamp, priority, sec_level,
+                         author, source, message))
         self.db.commit()
         return post_id
-
 
     def get_messages(self, limit=0):
         posts = []
@@ -83,7 +86,6 @@ class SqliteStorage(Storage):
             }
             posts.append(post)
         return posts
-
 
     def get_message_by_id(self, id=0):
         post = {}
@@ -104,7 +106,8 @@ class SqliteStorage(Storage):
     def get_messages_timestamp_range(self, timestamp_start, timestamp_end):
         posts = []
         cursor = self.db.cursor()
-        cursor.execute('''SELECT * from posts WHERE timestamp >= %s and timestamp <= %s ''' %
+        cursor.execute('''SELECT * from posts WHERE timestamp >= %s and
+                       timestamp <= %s ''' %
                        (timestamp_start, timestamp_end))
         for row in cursor:
             post = {
@@ -119,37 +122,42 @@ class SqliteStorage(Storage):
             posts.append(post)
         return posts
 
-
     def delete_post(self, post_id):
         rowcount = 0
         rowcount = self.db.execute(
             "delete from posts where id = %s" % post_id).rowcount
         return rowcount
 
-
     def put_some_data(self):
         self.db.execute('''
             INSERT INTO users(id, username, password) VALUES (1,'mazek','test')
-			''')
+                        ''')
         ts = int(time())
         self.db.execute('''
-            INSERT INTO posts(id, timestamp, priority,sec_level,author,source,message)
-            VALUES (1 ,? ,0 ,0 , 'jan dlugosz', 'twitter', 'Przykladowy post mowiacy o niczym')
-		''', (ts,))
+            INSERT INTO posts(id, timestamp, priority,sec_level,
+            author,source,message)
+            VALUES (1 ,? ,0 ,0 , 'jan dlugosz',
+            'twitter', 'Przykladowy post mowiacy o niczym')
+                        ''', (ts,))
         ts = int(time())+2
         self.db.execute('''
-            INSERT INTO posts(id, timestamp, priority,sec_level,author,source,message)
-            VALUES (2 ,? , 1, 0, 'ada nowak', 'ulica', 'Kolejny post mowiacy o niczym')
-		''', (ts,))
+            INSERT INTO posts(id, timestamp, priority,sec_level,
+            author,source,message)
+            VALUES (2 ,? , 1, 0, 'ada nowak',
+            'ulica', 'Kolejny post mowiacy o niczym')
+                       ''', (ts,))
         ts = int(time())+4
         self.db.execute('''
-            INSERT INTO posts(id, timestamp, priority,sec_level,author,source,message)
-            VALUES (3 ,? , 0, 1, 'john smith', 'kuchnia', 'Jeszcze inny post mowiacy o niczym')
-		''', (ts,))
+            INSERT INTO posts(id, timestamp, priority,sec_level,
+            author,source,message)
+            VALUES (3 ,? , 0, 1, 'john smith',
+            'kuchnia', 'Jeszcze inny post mowiacy o niczym')
+                       ''', (ts,))
         ts = int(time())+8
         self.db.execute('''
-            INSERT INTO posts(id, timestamp, priority,sec_level,author,source,message)
-            VALUES (4 ,? , 1, 1, 'jan kowalski', 'fajka', 'To jest post mowiacy o niczym')
-		''', (ts,))
+            INSERT INTO posts(id, timestamp, priority, sec_level,
+            author,source,message)
+            VALUES (4 ,? , 1, 1, 'jan kowalski',
+            'fajka', 'To jest post mowiacy o niczym')
+                       ''', (ts,))
         self.db.commit()
-

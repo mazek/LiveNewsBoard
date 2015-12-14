@@ -24,7 +24,7 @@ def get_payload(message):
 
 def get_fortune_output():
     return subprocess.check_output(["/usr/local/bin/fortune",
-        "-s", "linuxcookie"])
+                                    "-s", "linuxcookie"])
 
 
 def get_fortune_payload():
@@ -33,9 +33,8 @@ def get_fortune_payload():
 
 def put_to_dashboard(payload):
     headers = {'Content-Type': 'application/json'}
-    r = requests.post('http://localhost:5000/lwb/api/v1.0/posts', 
-            headers=headers, data=json.dumps(payload)
-    )   
+    r = requests.post('http://localhost:5000/lwb/api/v1.0/posts',
+                      headers=headers, data=json.dumps(payload))
     return r.content
 
 

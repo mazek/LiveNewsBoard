@@ -102,9 +102,9 @@ def unauthorized():
 def __main__():
     parser = argparse.ArgumentParser(description='Live News Board')
     parser.add_argument('--generate-fixtures', action='store_const',
-    const=True, default=False,
-    help='Generate sample demo data and run server', dest='fixtures')
-    
+        const=True, default=False,
+        help='Generate sample demo data and run server', dest='fixtures')
+
     args = parser.parse_args()
     if args.fixtures:
         storage.generate_fixtures()

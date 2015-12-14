@@ -66,7 +66,7 @@ class RedisStorage(Storage):
             ('pylabs-releases', 'Ralph 3.0-pre1 released!'),
                 ):
             self.put_post(10, 0,
-                   'marcin.kliks', source, message)
+                          'marcin.kliks', source, message)
         for i in self.get_posts():
             print(i)
             print("ID: {id} Author: {author} Source: {source} "
