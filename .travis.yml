@@ -9,3 +9,4 @@ install:
 before_script:
   - "pep8 src"
 
+script: echo foo
